@@ -23,6 +23,20 @@ export class PigGameComponent implements OnInit {
 
   newGame () {
     //sets everything to 0 // no window.reload()
+    this.imgPath = "";
+
+    this.player1.isActive = true;
+    this.player2.isActive = false;
+
+    this.player1.totalScore = 0;
+    this.player2.totalScore = 0;
+
+    this.player1.currentScore = 0;
+    this.player2.currentScore = 0;
+
+    this.player1.isWinner = false;
+    this.player2.isWinner = false;
+
   }
 
   rollDice () {
@@ -89,9 +103,6 @@ export class PigGameComponent implements OnInit {
         this.player2.isActive = false;
       }
     }
-
-
-    
   }
 
   getRandomNumber() {
