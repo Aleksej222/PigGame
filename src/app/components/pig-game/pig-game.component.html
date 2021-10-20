@@ -1,5 +1,5 @@
 <main>
-    <section class="player" [ngClass]="{'player-active' : player1.isActive}">
+    <section class="player" [ngClass]="{'player-active' : player1.isActive, 'player-winner' : player1.isWinner}">
         <h2 class="name">{{player1.name}}</h2>
         <p class="score">{{player1.totalScore}}</p>
         <div class="current">
@@ -8,7 +8,7 @@
         </div>
     </section>
 
-    <section class="player" [ngClass]="{'player-active' : player2.isActive}">
+    <section class="player" [ngClass]="{'player-active' : player2.isActive, 'player-winner' : player2.isWinner}">
         <h2 class="name">{{player2.name}}</h2>
         <p class="score">{{player2.totalScore}}</p>
         <div class="current">

@@ -30,32 +30,32 @@ export class PigGameComponent implements OnInit {
     // every roll adds points to current score
     //if dice gets 1 current score becomes 0 and its next player turn
     // show dice score (remove hidden class)
-    let diceRoll: number;
-    if (this.player1.isActive) {
-      diceRoll = this.getRandomNumber();
-      if (diceRoll !== 1) {
-        this.player1.currentScore += diceRoll;
+    if (!this.player1.isWinner && !this.player2.isWinner) {
+      let diceRoll: number;
+      if (this.player1.isActive) {
+        diceRoll = this.getRandomNumber();
         this.imgPath = `https://pig-game-v2.netlify.app/dice-${diceRoll}.png`;
+        if (diceRoll !== 1) {
+          this.player1.currentScore += diceRoll;
+        }
+        else {
+          this.player1.currentScore = 0;
+          this.player1.isActive = false;
+          this.player2.isActive = true;
+        }
       }
-      else {
-        this.player1.currentScore = 0;
-        this.imgPath = `https://pig-game-v2.netlify.app/dice-${diceRoll}.png`;
-        this.player1.isActive = false;
-        this.player2.isActive = true;
-      }
-    }
 
-    else if (this.player2.isActive) {
-      diceRoll = this.getRandomNumber();
-      if (diceRoll !== 1) {
-        this.player2.currentScore += diceRoll
+      else if (this.player2.isActive) {
+        diceRoll = this.getRandomNumber();
         this.imgPath = `https://pig-game-v2.netlify.app/dice-${diceRoll}.png`;
-      }
-      else {
-        this.player2.currentScore = 0;
-        this.imgPath = `https://pig-game-v2.netlify.app/dice-${diceRoll}.png`;
-        this.player2.isActive = false;
-        this.player1.isActive = true;
+        if (diceRoll !== 1) {
+          this.player2.currentScore += diceRoll
+        }
+        else {
+          this.player2.currentScore = 0;
+          this.player2.isActive = false;
+          this.player1.isActive = true;
+        }
       }
     }
   }
@@ -63,26 +63,35 @@ export class PigGameComponent implements OnInit {
   holdScore () {
     //adds current score to totalScore
     //next player turn
-    
+
+    this.player1.totalScore += this.player1.currentScore;
     this.player1.currentScore = 0;
+   
+    this.player2.totalScore += this.player2.currentScore;
     this.player2.currentScore = 0;
+
+    if (this.player1.totalScore >= 100) {
+      this.player1.isWinner = true;
+    }
+
+    else if (this.player2.totalScore >= 100) {
+      this.player2.isWinner = true;
+    }
+
+    if (!this.player1.isWinner && !this.player2.isWinner) {
+      
+      if (this.player1.isActive) {
+        this.player1.isActive = false;
+        this.player2.isActive = true;
+      }
+      else {
+        this.player1.isActive = true;
+        this.player2.isActive = false;
+      }
+    }
+
+
     
-    if (this.player1.isActive) {
-      this.player1.isActive = false;
-      this.player2.isActive = true;
-
-      //not working properly
-      //this.player2.totalScore += this.player2.currentScore;
-      //this.player2.currentScore = 0;
-    }
-    else {
-      this.player1.isActive = true;
-      this.player2.isActive = false;
-
-      //not working properly
-      //this.player1.totalScore += this.player1.currentScore;
-      //this.player1.currentScore = 0;
-    }
   }
 
   getRandomNumber() {
