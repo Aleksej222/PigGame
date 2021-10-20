@@ -9,8 +9,8 @@ import Player from 'src/app/models/player';
 export class PigGameComponent implements OnInit {
 
   player1 = new Player();
-
   player2 = new Player();
+  imgPath: string;
 
   constructor() { }
 
@@ -34,10 +34,12 @@ export class PigGameComponent implements OnInit {
     if (this.player1.isActive) {
       diceRoll = this.getRandomNumber();
       if (diceRoll !== 1) {
-        this.player1.currentScore += diceRoll
+        this.player1.currentScore += diceRoll;
+        this.imgPath = `https://pig-game-v2.netlify.app/dice-${diceRoll}.png`;
       }
       else {
         this.player1.currentScore = 0;
+        this.imgPath = `https://pig-game-v2.netlify.app/dice-${diceRoll}.png`;
         this.player1.isActive = false;
         this.player2.isActive = true;
       }
@@ -47,9 +49,11 @@ export class PigGameComponent implements OnInit {
       diceRoll = this.getRandomNumber();
       if (diceRoll !== 1) {
         this.player2.currentScore += diceRoll
+        this.imgPath = `https://pig-game-v2.netlify.app/dice-${diceRoll}.png`;
       }
       else {
         this.player2.currentScore = 0;
+        this.imgPath = `https://pig-game-v2.netlify.app/dice-${diceRoll}.png`;
         this.player2.isActive = false;
         this.player1.isActive = true;
       }
@@ -60,21 +64,24 @@ export class PigGameComponent implements OnInit {
     //adds current score to totalScore
     //next player turn
     
+    this.player1.currentScore = 0;
+    this.player2.currentScore = 0;
+    
     if (this.player1.isActive) {
       this.player1.isActive = false;
       this.player2.isActive = true;
 
       //not working properly
-      this.player2.totalScore += this.player2.currentScore;
-      this.player2.currentScore = 0;
+      //this.player2.totalScore += this.player2.currentScore;
+      //this.player2.currentScore = 0;
     }
     else {
       this.player1.isActive = true;
       this.player2.isActive = false;
 
       //not working properly
-      this.player1.totalScore += this.player1.currentScore;
-      this.player1.currentScore = 0;
+      //this.player1.totalScore += this.player1.currentScore;
+      //this.player1.currentScore = 0;
     }
   }
 

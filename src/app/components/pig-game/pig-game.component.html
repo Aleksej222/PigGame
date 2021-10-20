@@ -17,7 +17,7 @@
         </div>
     </section>
 
-    <img src="https://pig-game-v2.netlify.app/dice-1.png" alt="Playing dice" class="dice">
+    <img [ngClass]="{'hidden' : !imgPath}" [src]="imgPath" alt="Playing dice" class="dice">
 
     <button class="button btn-new" (click)="newGame()">🔄 New game</button>
     <button class="button btn-roll" (click)="rollDice()">🎲 Roll dice</button>
